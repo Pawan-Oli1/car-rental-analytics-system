@@ -27,10 +27,21 @@ Without structured data modeling and KPI tracking, operational decision-making b
 ---
 
 ## 🗂 Database Design
-- Multi-schema relational structure (Vehicle, Customer, Rental, Finance)
-- Fully normalized tables
-- Foreign key constraints for integrity
-- Automated late fee logic using triggers
+- Multi-schema relational structure (`Vehicle`, `Customer`, `Rental`, `Finance`, `Operation`) — 43 tables total
+- Fully normalized tables with primary/foreign key constraints and `CHECK` constraints on every enum-style column
+- Stored procedures and triggers automate rental pricing, invoice generation, and payment creation (e.g. `usp_CreateRentalEstimate`, `usp_FinalizeRental`, `trg_GenerateInvoice_AfterRentalCompletion`)
+- See [`03_Database_Design/schema-design.md`](./03_Database_Design/schema-design.md) for the full entity design and [`02_Data_Model/data-dictionary.md`](./02_Data_Model/data-dictionary.md) for column-level documentation (generated directly from the DDL, so it stays in sync with the schema)
+
+---
+
+## 📁 Repository Structure
+| Folder | Contents |
+|---|---|
+| [`01_Business_Context`](./01_Business_Context) | Project charter and the canonical business rules document (BR-01–BR-52) |
+| [`02_Data_Model`](./02_Data_Model) | Data dictionary, generated from the live DDL |
+| [`03_Database_Design`](./03_Database_Design) | Schema design write-up and ER diagram |
+| [`04_Database_Construction`](./04_Database_Construction) | The actual DDL (schema) and DML (sample data) that build and populate the database, plus an optional gap-closing constraints script |
+| [`05_SQL_Analytics`](./05_SQL_Analytics) | Revenue, fleet utilization, and customer insight queries run against the schema above |
 
 ---
 
